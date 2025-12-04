@@ -3,6 +3,20 @@ from telegram.ext import Application, CommandHandler, MessageHandler, CallbackQu
 import json
 import logging
 import asyncio
+import os, sys, logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+tok = os.environ.get("TELEGRAM_TOKEN")
+allowed = os.environ.get("ALLOWED_USERS")
+
+logger.info(f"TELEGRAM_TOKEN present? {'yes' if tok else 'no'}; length={len(tok) if tok else 0}")
+logger.info(f"ALLOWED_USERS env: {allowed!r}")
+
+if not tok:
+    logger.error("TELEGRAM_TOKEN eksik! Koyeb env ayarlarını kontrol et.")
+    sys.exit(1)
+
 
 # Conversation states
 STORE_SELECTION = 0
