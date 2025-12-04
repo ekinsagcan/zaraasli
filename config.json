@@ -1,0 +1,14 @@
+{
+    "items": [
+    ],
+    "sleep_min_seconds": 250,
+    "sleep_max_seconds": 300,
+    "chrome_driver_path": "chromedriver.exe",
+    "telegram": {
+        "bot_token": "YOUR_TELEGRAM_BOT_API",
+        "allowed_users": [
+            "ORNEKUSERID1",
+            "ORNEKUSERID2"
+        ]
+    }
+}
