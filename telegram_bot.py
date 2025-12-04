@@ -3,6 +3,10 @@ from telegram.ext import Application, CommandHandler, MessageHandler, CallbackQu
 import json
 import logging
 import asyncio
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service
 import os, sys, logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -39,6 +43,17 @@ class TelegramBot:
         # Geçici veri saklamak için
         self.temp_product_data = {}
         self.app = None
+
+    def get_driver():
+    chrome_options = Options()
+    chrome_options.add_argument("--headless") # Arayüzsüz mod (Sunucular için şart)
+    chrome_options.add_argument("--no-sandbox") # Root yetkisi sorununu çözer
+    chrome_options.add_argument("--disable-dev-shm-usage") # Bellek sorunlarını önler
+    
+    # WebDriver Manager kullanarak sürücüyü otomatik indirip başlatır
+    service = Service(ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=service, options=chrome_options)
+    return driver
 
     def load_config(self):
         with open(self.config_path, 'r', encoding='utf-8') as f:
